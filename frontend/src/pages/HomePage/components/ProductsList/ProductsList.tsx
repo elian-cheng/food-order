@@ -1,6 +1,6 @@
 import { IProduct } from 'store/redux/catalogSlice';
 import ProductCard from '../ProductCard/ProductCard';
-import styles from './ProductsList.module.scss';
+import { Grid } from '@mui/material';
 
 export interface IProductsList {
   products: IProduct[];
@@ -8,13 +8,11 @@ export interface IProductsList {
 
 const ProductsList: React.FC<IProductsList> = ({ products }) => {
   return (
-    <div className={styles.wrapper}>
-      <ul className={styles.list}>
-        {products.map((product) => (
-          <ProductCard product={product} key={product.id} />
-        ))}
-      </ul>
-    </div>
+    <Grid container spacing={{ xs: 2 }}>
+      {products.map((product) => (
+        <ProductCard product={product} key={product.id} />
+      ))}
+    </Grid>
   );
 };
 

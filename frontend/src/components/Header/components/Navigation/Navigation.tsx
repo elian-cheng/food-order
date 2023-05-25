@@ -1,8 +1,9 @@
-import { List, Typography, MenuItem, Button } from '@mui/material';
+import { List, Typography, MenuItem, Button, Badge } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../../../store/context/authContext';
 import * as Icons from '@mui/icons-material';
 import { MouseEventHandler } from 'react';
+import { useAppSelector } from '../../../../hooks/redux';
 
 interface INavigation {
   handleModal: MouseEventHandler<HTMLElement>;
@@ -10,6 +11,7 @@ interface INavigation {
 
 const Navigation: React.FC<INavigation> = ({ handleModal }) => {
   const { user, setUser } = useAuth();
+  const { totalQuantity } = useAppSelector((state) => state.cart);
   const logoutHandler = () => {
     localStorage.removeItem('userData');
     setUser(null);
@@ -44,24 +46,22 @@ const Navigation: React.FC<INavigation> = ({ handleModal }) => {
               </NavLink>
             </MenuItem>
             <MenuItem>
-              <NavLink to="/cart">
-                <Typography sx={{ verticalAlign: 'middle' }} component={'span'}>
-                  Cart
-                </Typography>
-              </NavLink>
+              <Button onClick={logoutHandler} endIcon={<Icons.Logout />}>
+                Logout
+              </Button>
             </MenuItem>
             <MenuItem>
-              <Button onClick={logoutHandler}>
-                Logout
-                <Icons.Logout sx={{ verticalAlign: 'middle' }} />
-              </Button>
+              <NavLink to="/cart">
+                <Badge badgeContent={totalQuantity}>
+                  <Icons.ShoppingCart sx={{ verticalAlign: 'middle', mr: '.5rem' }} />
+                </Badge>
+              </NavLink>
             </MenuItem>
           </>
         ) : (
           <MenuItem>
-            <Button onClick={handleModal}>
+            <Button onClick={handleModal} endIcon={<Icons.Login />}>
               Login
-              <Icons.Login sx={{ verticalAlign: 'middle' }} />
             </Button>
           </MenuItem>
         )}
