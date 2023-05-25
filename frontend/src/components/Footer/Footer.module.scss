@@ -1,0 +1,56 @@
+.footer {
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 16px rgba(133, 133, 133, 0.1);
+  height: 60px;
+  padding: 20px 60px;
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  max-width: 100px;
+}
+
+.container {
+  padding: 8px 30px;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 850px) {
+  .logo-link {
+    display: none;
+  }
+  .footer {
+    height: auto;
+    padding: 15px;
+  }
+  .year {
+    display: none;
+  }
+  .team-members-wrap {
+    width: 100%;
+  }
+  .team-wrap {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .team-members-hold {
+    flex-direction: column;
+  }
+}

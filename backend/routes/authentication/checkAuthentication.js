@@ -2,33 +2,15 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET_KEY, JWT_REFRESH_SECRET_KEY } = require("../../common/config");
 const { AUTHORIZATION_ERROR } = require("../../errors/appErrors");
 
-const ALLOWED_PATHS = [
-  "/signin",
-  "/signup",
-  "/",
-  "/practice",
-  "/lessons",
-  "/quiz",
-  "/missing-type",
-  "/games",
-  "/games/quiz",
-  "/games/missing-type"
-];
+const ALLOWED_PATHS = ["/signin", "/signup", "/", "/products"];
 const USERS_PATH = "/users";
-const LESSONS_PATH = /^\/lessons.*$/;
-const QUIZ_PATH = /^\/quiz.*$/;
-const MISSING_TYPE_PATH = /^\/missing-type.*$/;
+const PRODUCTS_PATH = /^\/products.*$/;
 
 function isOpenPath(path) {
-  return (
-    ALLOWED_PATHS.includes(path) ||
-    LESSONS_PATH.test(path) ||
-    QUIZ_PATH.test(path) ||
-    MISSING_TYPE_PATH.test(path)
-  );
+  return ALLOWED_PATHS.includes(path) || PRODUCTS_PATH.test(path);
 }
 
-const checkAuthentication = (req, res, next) => {
+const checkAuthentication = (req, res, next) => {npm
   if (isOpenPath(req.path)) {
     return next();
   }

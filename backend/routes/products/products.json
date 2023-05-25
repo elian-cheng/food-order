@@ -365,7 +365,7 @@
     "description": "Classic donut",
     "ingredients": ["Donut", "Sprinkling", "Glaze", "Filling of your choice"],
     "category": "dessert",
-    "shop": "burgerville",
+    "shop": "shawarmany",
     "image": "https://firebasestorage.googleapis.com/v0/b/food-order-b23ae.appspot.com/o/8136304087.jpg?alt=media&token=cfb2a0bd-734f-4439-bcd2-3ebfd0347b72"
   },
   {

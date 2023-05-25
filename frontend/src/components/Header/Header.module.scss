@@ -1,0 +1,30 @@
+.header {
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+  height: 64px;
+  backdrop-filter: blur(10px);
+}
+
+.header.header__sticky {
+  position: fixed;
+  background: rgba($color: #fff, $alpha: 0.1);
+  animation: slideDown 0.35s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .logoIcon {
+    display: none;
+  }
+}
