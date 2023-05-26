@@ -11,7 +11,7 @@ export interface IProductProps {
 }
 
 const ProductCard: React.FC<IProductProps> = ({ product }) => {
-  const { title, price, id, image } = product;
+  const { title, price, id, image, shop } = product;
   const dispatch = useAppDispatch();
   const { user } = useAuth();
 
@@ -25,6 +25,7 @@ const ProductCard: React.FC<IProductProps> = ({ product }) => {
         id,
         title,
         price,
+        shop,
         totalPrice: price,
         quantity: 1,
         image,

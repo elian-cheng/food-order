@@ -1,10 +1,12 @@
 const SHOPSLIST = ['burgerville', 'shawarmany', 'pizzato'];
-import { useAppDispatch } from '../../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
 import styles from './ShopsList.module.scss';
 import { setShop } from '../../../../store/redux/catalogSlice';
 
 const ShopsList: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { cartItems } = useAppSelector((state) => state.cart);
+  const savedShop = useAppSelector((state) => state.catalog.shop);
 
   return (
     <div className={styles.wrapper}>
@@ -12,14 +14,11 @@ const ShopsList: React.FC = () => {
         {SHOPSLIST.map((shop, index) => (
           <li
             key={index}
-            className={styles.listItem}
-            // onClick={() => {
-            //   !cartItems.length
-            //     ? dispatch(setShop(shop))
-            //     : alert('Cant order from different shop. Delete cart items first');
-            // }}
+            className={savedShop === shop ? `${styles.listItem} activeShop` : styles.listItem}
             onClick={() => {
-              dispatch(setShop(shop));
+              cartItems.length
+                ? alert('Cant order from multiple shops at once. Delete cart items first')
+                : dispatch(setShop(shop));
             }}
           >
             <p className={styles.name}>{shop}</p>

@@ -2,7 +2,8 @@ import { BASE_URL } from './URL';
 import { IGetUSer, USER } from './authorization';
 import axios from 'axios';
 import storage from '../utils/storage';
-import { IProduct } from './products';
+// import { IProduct } from './products';
+import { ICartItem } from '../store/redux/cartSlice';
 
 export interface IUserOrder {
   shop: string;
@@ -12,9 +13,9 @@ export interface IUserOrder {
     phone: string;
     address: string;
   };
-  products: IProduct[];
-  totalPrice: string;
-  date: Date;
+  products: ICartItem[];
+  totalAmount: number;
+  date: string;
 }
 
 export const USER_ORDERS = `${USER}/orders`;
@@ -45,6 +46,7 @@ axios.interceptors.response.use(
 export const getUserOrders = (id: string) => {
   return axios.get<IUserOrder[]>(`${BASE_URL}users/${id}/orders`);
 };
-export const setUserOrder = (id: string, body: IUserOrder) => {
+
+export const setUserOrders = (id: string, body: IUserOrder) => {
   return axios.put<IUserOrder[]>(`${BASE_URL}users/${id}/orders`, body);
 };

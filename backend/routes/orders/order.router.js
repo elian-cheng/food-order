@@ -9,6 +9,11 @@ router.get("/", async (req, res) => {
   res.status(StatusCodes.OK).send(order.toResponse());
 });
 
+router.post("/", validator(orders, "body"), async (req, res) => {
+  const order = await orderService.save(req.body);
+  res.status(StatusCodes.OK).send(order.toResponse());
+});
+
 router.put("/", validator(orders, "body"), async (req, res) => {
   const order = await orderService.upsert(req.userId, req.body);
   res.status(StatusCodes.OK).send(order.toResponse());

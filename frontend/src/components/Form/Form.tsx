@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../../store/context/authContext';
 import { useThemeSwitcher } from '../../store/context/themeContext';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -17,7 +17,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { LockOutlined } from '@mui/icons-material';
 import COLORS from '../../theme/colors';
-import { getUserId, userLoginAPI, userSignUpAPI } from '../../API/authorization';
+import {
+  checkUserAuthorization,
+  getUserId,
+  userLoginAPI,
+  userSignUpAPI,
+} from '../../API/authorization';
+import storage from '../../utils/storage';
 
 export interface IFormData {
   email: string;
@@ -28,7 +34,7 @@ export interface IFormData {
 const Form: React.FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const { isDark } = useThemeSwitcher();
 
   const switchAuthModeHandler = () => {
@@ -61,17 +67,18 @@ const Form: React.FC = () => {
     shouldUseNativeValidation: false,
   });
 
-  // const updateUser = useCallback(() => {
-  //   checkUserAuthorization().then((checkedUser) => {
-  //     if (JSON.stringify(user) !== JSON.stringify(checkedUser)) {
-  //       setUser(checkedUser);
-  //     }
-  //   });
-  // }, [setUser, user]);
+  const updateUser = useCallback(() => {
+    const userData = storage.getItem('userData');
+    checkUserAuthorization().then((checkedUser) => {
+      if (JSON.stringify(userData) !== JSON.stringify(checkedUser)) {
+        setUser(checkedUser?.id as string);
+      }
+    });
+  }, [setUser, user]);
 
-  // useEffect(() => {
-  //   updateUser();
-  // }, [updateUser, user]);
+  useEffect(() => {
+    updateUser();
+  }, [updateUser, user]);
 
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
     setIsLoading(true);
@@ -83,6 +90,7 @@ const Form: React.FC = () => {
       const res = await userLoginAPI(data);
       localStorage.setItem('userData', JSON.stringify(res));
       setUser(getUserId());
+      updateUser();
       setIsLoading(false);
       location.reload();
     } catch (err: unknown) {

@@ -49,7 +49,7 @@ app.use("/products", productsRouter);
 
 userRouter.use("/:id/tokens", userIdValidator, userTokenRouter);
 
-userRouter.use("/:id/orders", userIdValidator, ordersRouter);
+userRouter.use("/:id/orders", ordersRouter);
 
 app.use((req, res, next) => next(createError(StatusCodes.NOT_FOUND)));
 

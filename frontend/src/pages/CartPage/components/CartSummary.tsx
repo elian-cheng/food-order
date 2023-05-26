@@ -1,5 +1,6 @@
 import { Box, Button, Input, Paper, Grid } from '@mui/material';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { ProductDetailsLabels } from './CartProduct';
 
 export interface ISummaryCart {
@@ -136,9 +137,16 @@ const CartSummary = (props: ISummaryCart) => {
           ))}
           {isPromoFunc(isPromo)}
         </Box>
-        <Button variant="contained" sx={{ color: 'white' }}>
-          Order now
-        </Button>
+        <NavLink to="/checkout">
+          <Button
+            variant="contained"
+            sx={{
+              mt: '1rem',
+            }}
+          >
+            Order Now
+          </Button>
+        </NavLink>
       </Box>
     </Paper>
   );

@@ -18,6 +18,7 @@ const CartProduct = (props: ICartItem) => {
         id: props.id,
         title: props.title,
         price: props.price,
+        shop: props.shop,
         totalPrice: props.price,
         quantity: 1,
         image: props.image,

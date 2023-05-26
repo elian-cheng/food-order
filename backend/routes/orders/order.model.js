@@ -20,12 +20,12 @@ const OrderSchema = new Schema(
       type: Array,
       required: true
     },
-    totalPrice: {
+    totalAmount: {
       type: Number,
       required: true
     },
     date: {
-      type: Date,
+      type: String,
       required: false
     }
   },

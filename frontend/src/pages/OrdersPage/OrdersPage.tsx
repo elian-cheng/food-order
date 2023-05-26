@@ -1,4 +1,5 @@
-const OrdersPage = () => {
-  return <div>OrdersPage</div>;
+const OrdersPage: React.FC = () => {
+  return <div>Orders page</div>;
 };
+
 export default OrdersPage;

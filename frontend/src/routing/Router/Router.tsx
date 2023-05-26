@@ -4,6 +4,7 @@ import HomePage from '../../pages/HomePage/HomePage';
 import React, { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from '../../store/context/authContext';
+import CheckoutPage from '../../pages/CheckoutPage/CheckoutPage';
 
 const CartPage = React.lazy(() => import('../../pages/CartPage/CartPage'));
 const OrdersPage = React.lazy(() => import('../../pages/OrdersPage/OrdersPage'));
@@ -14,19 +15,13 @@ export default function Router() {
 
   return (
     <>
-      <Suspense
-        fallback={
-          <div className="centered">
-            <Loader />
-          </div>
-        }
-      >
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<HomePage />} />
-            {/* <Route path="/:productId" element={<ProductPage />} /> */}
             {user && <Route path="/orders" element={<OrdersPage />} />}
             {user && <Route path="/cart" element={<CartPage />} />}
+            {user && <Route path="/checkout" element={<CheckoutPage />} />}
             {user && <Route path="/auth" element={<Navigate to="/" replace />} />}
             {!user && <Route path="/orders" element={<Navigate to="/" replace />} />}
             <Route path="*" element={<ErrorPage />} />

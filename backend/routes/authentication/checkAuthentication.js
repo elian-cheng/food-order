@@ -10,7 +10,7 @@ function isOpenPath(path) {
   return ALLOWED_PATHS.includes(path) || PRODUCTS_PATH.test(path);
 }
 
-const checkAuthentication = (req, res, next) => {npm
+const checkAuthentication = (req, res, next) => {
   if (isOpenPath(req.path)) {
     return next();
   }

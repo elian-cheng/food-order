@@ -12,6 +12,10 @@ function getItem<T>(key: string) {
   return JSON.parse(storedState) as T;
 }
 
+function removeItem<T>(key: string) {
+  localStorage.removeItem(key);
+}
+
 function clear() {
   localStorage.clear();
 }
@@ -19,6 +23,7 @@ function clear() {
 const storage = {
   setItem,
   getItem,
+  removeItem,
   clear,
 };
 

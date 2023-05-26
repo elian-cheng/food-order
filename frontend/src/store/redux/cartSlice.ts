@@ -6,6 +6,7 @@ export interface ICartItem {
   title: string;
   image: string;
   price: number;
+  shop: string;
   quantity: number;
   totalPrice: number;
 }
@@ -40,12 +41,13 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    replaceCart(
-      state,
-      action: PayloadAction<{ totalQuantity: number; totalAmount: number; items: ICartItem[] }>
-    ) {
-      state.totalAmount = action.payload.totalAmount;
-      state.cartItems = action.payload.items;
+    replaceCart(state) {
+      state.cartItems = [];
+      state.totalAmount = 0;
+      state.totalQuantity = 0;
+      storage.removeItem('cartItems');
+      storage.removeItem('totalAmount');
+      storage.removeItem('totalQuantity');
     },
     addItemToCart(state, action: PayloadAction<ICartItem>) {
       const newItem = action.payload;
@@ -57,6 +59,7 @@ const cartSlice = createSlice({
           id: newItem.id,
           price: newItem.price,
           quantity: newItem.quantity,
+          shop: newItem.shop,
           totalPrice: newItem.price,
           title: newItem.title,
           image: newItem.image,
