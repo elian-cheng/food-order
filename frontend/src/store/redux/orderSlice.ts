@@ -6,8 +6,9 @@ import storage from '../../utils/storage';
 import { ICartItem } from './cartSlice';
 
 export interface IOrder {
+  _id?: string;
   shop: string;
-  userId: string;
+  // userId: string;
   userData: {
     name: string;
     phone: string;
@@ -91,7 +92,7 @@ export const orderSlice = createSlice({
         state.orders = action.payload;
         state.isLoading = false;
       })
-      .addCase(sendOrder.fulfilled, (state, action) => {
+      .addCase(sendOrder.fulfilled, (state) => {
         state.isLoading = false;
       })
       .addCase(getOrders.pending, (state) => {

@@ -1,6 +1,8 @@
 import { Box, Button, Input, Paper, Grid } from '@mui/material';
+import { useAppDispatch } from '../../../hooks/redux';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { replaceCart } from '../../../store/redux/cartSlice';
 import { ProductDetailsLabels } from './CartProduct';
 
 export interface ISummaryCart {
@@ -12,6 +14,7 @@ const promoToTest = ['PROMO1', 'PROMO2', 'PROMO3'];
 const discountKeyToStore = 'discountAmount';
 
 const CartSummary = (props: ISummaryCart) => {
+  const dispatch = useAppDispatch();
   const [isPromo, setIsPromo] = useState<boolean[]>(promoToTest.map(() => false));
   const [implementedDiscount, setImplementedDiscount] = useState<string[]>(
     (localStorage.getItem(discountKeyToStore || '{}') &&
@@ -22,6 +25,10 @@ const CartSummary = (props: ISummaryCart) => {
   const falsePromoArr = promoToTest.map(() => false);
   const discountItemIndex = isPromo.indexOf(true);
   const tempImplementedDiscount = [...implementedDiscount];
+
+  const clearCartHandler = () => {
+    dispatch(replaceCart());
+  };
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     const promoCode = event.target.value;
@@ -77,18 +84,18 @@ const CartSummary = (props: ISummaryCart) => {
     if (!discountArr[0]) {
       return (
         <Box>
-          Total {ProductDetailsLabels.Currency}: {props.totalAmount}.00
+          Total {ProductDetailsLabels.Currency}: {props.totalAmount.toFixed(2)}
         </Box>
       );
     }
     return (
       <Box>
         <Box sx={{ textDecoration: 'line-through' }}>
-          Total {ProductDetailsLabels.Currency}: {props.totalAmount}.00
+          Total {ProductDetailsLabels.Currency}: {props.totalAmount}
         </Box>
         <Box>
           Total {ProductDetailsLabels.Currency}:{' '}
-          {Math.ceil(props.totalAmount / (1 + 0.1 * discountArr.length))}.00
+          {Math.ceil(props.totalAmount / (1 + 0.1 * discountArr.length))}
         </Box>
         {discountArr.map((item, index) => {
           return (
@@ -137,16 +144,26 @@ const CartSummary = (props: ISummaryCart) => {
           ))}
           {isPromoFunc(isPromo)}
         </Box>
-        <NavLink to="/checkout">
-          <Button
-            variant="contained"
-            sx={{
-              mt: '1rem',
-            }}
-          >
-            Order Now
-          </Button>
-        </NavLink>
+        <Button
+          variant="contained"
+          sx={{
+            mt: '1rem',
+            color: 'white',
+          }}
+        >
+          <NavLink to="/checkout">Order Now</NavLink>
+        </Button>
+        <Button
+          variant="contained"
+          sx={{
+            mt: '1rem',
+            color: 'white',
+            backgroundColor: '#39527c',
+          }}
+          onClick={clearCartHandler}
+        >
+          Clear cart
+        </Button>
       </Box>
     </Paper>
   );

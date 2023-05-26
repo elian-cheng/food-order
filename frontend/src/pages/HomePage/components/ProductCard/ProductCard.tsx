@@ -70,7 +70,7 @@ const ProductCard: React.FC<IProductProps> = ({ product }) => {
             {product.title}
           </Typography>
           <Typography gutterBottom variant="h5" component="div" sx={{ p: 1 }}>
-            {ProductDetailsLabels.Currency} {product.price}.00
+            {ProductDetailsLabels.Currency} {product.price.toFixed(2)}
           </Typography>
           <Button
             variant="contained"

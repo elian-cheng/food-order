@@ -12,7 +12,7 @@ function getItem<T>(key: string) {
   return JSON.parse(storedState) as T;
 }
 
-function removeItem<T>(key: string) {
+function removeItem(key: string) {
   localStorage.removeItem(key);
 }
 

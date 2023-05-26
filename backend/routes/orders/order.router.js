@@ -5,8 +5,8 @@ const { orders } = require("../../utils/validation/schemas");
 const { validator } = require("../../utils/validation/validator");
 
 router.get("/", async (req, res) => {
-  const order = await orderService.get(req.userId);
-  res.status(StatusCodes.OK).send(order.toResponse());
+  const orders = await orderService.get(req.userId);
+  res.status(StatusCodes.OK).send(orders);
 });
 
 router.post("/", validator(orders, "body"), async (req, res) => {

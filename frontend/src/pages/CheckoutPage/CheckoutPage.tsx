@@ -1,8 +1,8 @@
 import { useAppSelector } from '../../hooks/redux';
 import React from 'react';
-import { addOrder } from '../../store/redux/orderSlice';
 import CheckoutForm from './components/CheckoutForm/CheckoutForm';
 import { Typography } from '@mui/material';
+import GoogleMap from './components/GoogleMap/GoogleMap';
 
 const CheckoutPage: React.FC = () => {
   const { cartItems } = useAppSelector((state) => state.cart);
@@ -16,6 +16,7 @@ const CheckoutPage: React.FC = () => {
       ) : (
         <div className="orders__form-wrapper">
           <CheckoutForm />
+          <GoogleMap />
         </div>
       )}
     </>

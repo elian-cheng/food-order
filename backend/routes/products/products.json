@@ -2,7 +2,7 @@
   {
     "id": "3184803604",
     "title": "Meat Bomb",
-    "price": 689,
+    "price": 8.6,
     "weight": 520,
     "calories": 430,
     "description": "Super meaty delight! A large minced fresh beef patty will win you over with its juiciness, while crispy lettuce leaves will add freshness.",
@@ -14,7 +14,7 @@
   {
     "id": "4593457527",
     "title": "Super Cheesy",
-    "price": 550,
+    "price": 6.87,
     "weight": 512,
     "calories": 590,
     "description": "Super cheesy delight! Big minced fresh marbled beef patty will win you over with its juiciness and plenty of cheese: Parmesan, Gouda, Cheddar and Blue Cheese.",
@@ -35,7 +35,7 @@
   {
     "id": "8818264880",
     "title": "Satiating",
-    "price": 639,
+    "price": 7.98,
     "weight": 580,
     "calories": 740,
     "description": "Super hearty treat! Two huge homemade steaks will win you over with their fullness.",
@@ -55,7 +55,7 @@
   {
     "id": "4667225618",
     "title": "Heavy Blow",
-    "price": 480,
+    "price": 6,
     "weight": 470,
     "calories": 810,
     "description": "You need to be 100% sure of yourself to eat it! Two huge pork chops cooked over a fire will drive you crazy with juiciness and taste.",
@@ -77,7 +77,7 @@
   {
     "id": "1223980593",
     "title": "Eternal Classic",
-    "price": 450,
+    "price": 5.62,
     "weight": 450,
     "calories": 610,
     "description": "Delicious 100% classic",
@@ -98,7 +98,7 @@
   {
     "id": "3355055171",
     "title": "Italian",
-    "price": 560,
+    "price": 6.98,
     "weight": 510,
     "calories": 535,
     "description": "Delicious 100% classic",
@@ -118,7 +118,7 @@
   {
     "id": "7029852449",
     "title": "Nachos",
-    "price": 250,
+    "price": 3.12,
     "weight": 220,
     "calories": 660,
     "description": "Crispy Corn Tortilla Chips",
@@ -130,7 +130,7 @@
   {
     "id": "7696061170",
     "title": "French fries",
-    "price": 245,
+    "price": 3.06,
     "weight": 180,
     "calories": 560,
     "description": "We have it exactly the way the world loves it - soft, crumbly on the inside and deliciously crispy on the outside. Potatoes are cut into large slices and deep-fried. The best varieties are used for preparation. Crispy and juicy dish with different sauces is waiting for you!",
@@ -142,7 +142,7 @@
   {
     "id": "3781849650",
     "title": "Onion rings",
-    "price": 230,
+    "price": 2.87,
     "weight": 160,
     "calories": 650,
     "description": "Breaded chopped onion rings",
@@ -154,7 +154,7 @@
   {
     "id": "0700847980",
     "title": "Homemade hot dog",
-    "price": 265,
+    "price": 3.31,
     "weight": 210,
     "calories": 526,
     "description": "Delicious, homemade",
@@ -173,7 +173,7 @@
   {
     "id": "8818709061",
     "title": "Hot dog Premium",
-    "price": 385,
+    "price": 4.81,
     "weight": 430,
     "calories": 516,
     "description": "Chopped beef and pork steak, are you sure it's a hot dog?",
@@ -197,7 +197,7 @@
   {
     "id": "4856056854",
     "title": "Double Chicken",
-    "price": 315,
+    "price": 3.95,
     "weight": 390,
     "calories": 890,
     "description": "For chicken lovers",
@@ -219,7 +219,7 @@
   {
     "id": "7445538462",
     "title": "Classic Hot Dog",
-    "price": 160,
+    "price": 2,
     "weight": 200,
     "calories": 390,
     "description": "Timeless classic",
@@ -231,7 +231,7 @@
   {
     "id": "0245702138",
     "title": "Hot dog",
-    "price": 280,
+    "price": 3.5,
     "weight": 250,
     "calories": 610,
     "description": "For those who like the witty",
@@ -243,7 +243,7 @@
   {
     "id": "6194519395",
     "title": "Rustic Shawarma",
-    "price": 322,
+    "price": 4.2,
     "weight": 310,
     "calories": 580,
     "description": "The best of the fence and garden. If you know these words, then you will definitely like it",
@@ -263,7 +263,7 @@
   {
     "id": "2620495882",
     "title": "Youth Shawarma",
-    "price": 305,
+    "price": 3.8,
     "weight": 320,
     "calories": 620,
     "description": "Delicious, satisfying, convenient!",
@@ -283,7 +283,7 @@
   {
     "id": "4941077801",
     "title": "Combo wombo",
-    "price": 990,
+    "price": 12.37,
     "weight": 1200,
     "calories": 1500,
     "description": "any 2 burgers and fries",
@@ -295,7 +295,7 @@
   {
     "id": "1110641351",
     "title": "Feta",
-    "price": 790,
+    "price": 9.85,
     "weight": 470,
     "calories": 1605,
     "description": "Pizza with cream cheese, red sauce, arugula",
@@ -307,7 +307,7 @@
   {
     "id": "8671991648",
     "title": "Rio",
-    "price": 850,
+    "price": 10.62,
     "weight": 550,
     "calories": 1350,
     "description": "Pizza with ham, chicken, sweet peppers, olives",
@@ -328,7 +328,7 @@
   {
     "id": "8297617295",
     "title": "Olivia",
-    "price": 750,
+    "price": 9.37,
     "weight": 550,
     "calories": 1350,
     "description": "Pizza with dried tomatoes, olives, mozzarella cheese",
@@ -347,7 +347,7 @@
   {
     "id": "1908233603",
     "title": "Rustic",
-    "price": 460,
+    "price": 5.75,
     "weight": 600,
     "calories": 2028,
     "description": "Pie with open crusts, curd cream, blueberries, walnuts",
@@ -359,7 +359,7 @@
   {
     "id": "8136304087",
     "title": "Donut",
-    "price": 99,
+    "price": 1.25,
     "weight": 70,
     "calories": 320,
     "description": "Classic donut",
@@ -371,7 +371,7 @@
   {
     "id": "7477216608",
     "title": "Cheesecake New York",
-    "price": 235,
+    "price": 2.95,
     "weight": 100,
     "calories": 350,
     "description": "A true American classic - a delicate cheesecake with a creamy cottage cheese filling with a hint of vanilla on a thin sandy almond base. The dessert is topped with apricot jam jelly, decorated with fresh raspberries and powdered sugar.",
@@ -383,7 +383,7 @@
   {
     "id": "1922643833",
     "title": "Nutty",
-    "price": 60,
+    "price": 0.85,
     "weight": 40,
     "calories": 156,
     "description": "Gamadari sauce is a peanut-based nut sauce. Great with vegetables and cold appetizers",
@@ -395,7 +395,7 @@
   {
     "id": "5235966546",
     "title": "Sour Cream Sauce",
-    "price": 40,
+    "price": 0.5,
     "weight": 40,
     "calories": 178,
     "description": "Sour Cream Hot Sauce - slightly spicy, has a pleasant taste with a delicate creamy note.",
@@ -407,7 +407,7 @@
   {
     "id": "8542732392",
     "title": "Sriracha Sauce",
-    "price": 40,
+    "price": 0.5,
     "weight": 40,
     "calories": 112,
     "description": "Thai red chilli sauce for those who like it spicier!",

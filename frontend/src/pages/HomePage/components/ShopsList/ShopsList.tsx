@@ -1,31 +1,65 @@
-const SHOPSLIST = ['burgerville', 'shawarmany', 'pizzato'];
+import { Box, List, ListItem, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
-import styles from './ShopsList.module.scss';
 import { setShop } from '../../../../store/redux/catalogSlice';
+
+const SHOPSLIST = ['burgerville', 'shawarmany', 'pizzato'];
 
 const ShopsList: React.FC = () => {
   const dispatch = useAppDispatch();
   const { cartItems } = useAppSelector((state) => state.cart);
   const savedShop = useAppSelector((state) => state.catalog.shop);
 
+  const handleClick = (shop: string) => {
+    if (cartItems.length) {
+      alert('Cannot order from multiple shops at once. Delete cart items first.');
+    } else {
+      dispatch(setShop(shop));
+    }
+  };
+
   return (
-    <div className={styles.wrapper}>
-      <ul className={styles.list}>
+    <Box sx={{ width: 280 }}>
+      <List
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gridGap: '2rem',
+          justifyContent: 'flex-start',
+        }}
+      >
         {SHOPSLIST.map((shop, index) => (
-          <li
+          <ListItem
             key={index}
-            className={savedShop === shop ? `${styles.listItem} activeShop` : styles.listItem}
-            onClick={() => {
-              cartItems.length
-                ? alert('Cant order from multiple shops at once. Delete cart items first')
-                : dispatch(setShop(shop));
+            sx={{
+              color: 'white',
+              border: '1px solid transparent',
+              backgroundColor: savedShop === shop ? '#39527c' : 'grey',
+              padding: 5,
+              width: 200,
+              height: 80,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 10,
+              cursor: 'pointer',
+              transition: 'all 0.3s ease 0s',
+              '&:hover, &:focus': {
+                border: '2px solid cyan',
+                cursor: 'pointer',
+                boxShadow:
+                  '0px 3px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12)',
+              },
             }}
+            onClick={() => handleClick(shop)}
           >
-            <p className={styles.name}>{shop}</p>
-          </li>
+            <Typography variant="body1" textTransform="capitalize">
+              {shop}
+            </Typography>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 

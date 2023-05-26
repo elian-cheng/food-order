@@ -1,5 +1,5 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
-import React from 'react';
+import { Box, Button, FormLabel, TextField, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
 import { useThemeSwitcher } from '../../../../store/context/themeContext';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,9 +22,16 @@ const CheckoutForm: React.FC = () => {
   const { user } = useAuth();
   const { cartItems, totalAmount } = useAppSelector((state) => state.cart);
   const { shop } = useAppSelector((state) => state.catalog);
-  const { isLoading, isError } = useAppSelector((state) => state.orders);
+  const { directions } = useAppSelector((state) => state.map);
+  const { isLoading } = useAppSelector((state) => state.orders);
   const navigate = useNavigate();
   const { isDark } = useThemeSwitcher();
+
+  useEffect(() => {
+    if (!directions) return;
+    const valueInp = document.querySelector('#address') as HTMLInputElement;
+    valueInp.value = directions;
+  }, [directions]);
 
   const schema = yup.object().shape({
     name: yup
@@ -96,6 +103,7 @@ const CheckoutForm: React.FC = () => {
         Order
       </Typography>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
+        <FormLabel>Your full name</FormLabel>
         <TextField
           {...register('name')}
           variant="outlined"
@@ -103,13 +111,14 @@ const CheckoutForm: React.FC = () => {
           required
           fullWidth
           id="name"
-          label="Name"
+          // label="Name"
           name="name"
           type="name"
           autoComplete="name"
           error={!!errors.name}
           helperText={errors?.name?.message}
         />
+        <FormLabel>Phone number</FormLabel>
         <TextField
           {...register('phone')}
           variant="outlined"
@@ -117,13 +126,14 @@ const CheckoutForm: React.FC = () => {
           required
           fullWidth
           name="phone"
-          label="Phone"
+          // label="Phone"
           type="string"
           id="phone"
           autoComplete="current-phone"
           error={!!errors.phone}
           helperText={errors?.phone?.message}
         />
+        <FormLabel>Delivery address</FormLabel>
         <TextField
           {...register('address')}
           variant="outlined"
@@ -131,7 +141,7 @@ const CheckoutForm: React.FC = () => {
           required
           fullWidth
           name="address"
-          label="Address"
+          // label="Address"
           type="text"
           id="address"
           autoComplete="current-address"

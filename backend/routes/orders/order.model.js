@@ -26,7 +26,7 @@ const OrderSchema = new Schema(
     },
     date: {
       type: String,
-      required: false
+      required: true
     }
   },
   { collection: "orders" }

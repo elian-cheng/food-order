@@ -22,7 +22,8 @@ export default function Router() {
             {user && <Route path="/orders" element={<OrdersPage />} />}
             {user && <Route path="/cart" element={<CartPage />} />}
             {user && <Route path="/checkout" element={<CheckoutPage />} />}
-            {user && <Route path="/auth" element={<Navigate to="/" replace />} />}
+            {!user && <Route path="/cart" element={<Navigate to="/" replace />} />}
+            {!user && <Route path="/checkout" element={<Navigate to="/" replace />} />}
             {!user && <Route path="/orders" element={<Navigate to="/" replace />} />}
             <Route path="*" element={<ErrorPage />} />
           </Route>

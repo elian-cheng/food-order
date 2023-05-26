@@ -70,7 +70,7 @@ const CartProduct = (props: ICartItem) => {
           </Box>
           <Box>
             {ProductDetailsLabels.Currency}
-            {props.quantity && props.quantity * props.price}.00
+            {props.quantity && (props.quantity * props.price).toFixed(2)}
           </Box>
         </Grid>
       </Grid>
