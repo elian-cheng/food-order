@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { BASE_URL } from '../../API/URL';
-import { IGetUSer, USER } from '../../API/authorization';
+import { IGetUSer } from '../../API/authorization';
 import storage from '../../utils/storage';
 import { ICartItem } from './cartSlice';
 
 export interface IOrder {
   _id?: string;
   shop: string;
-  // userId: string;
+  userId: string;
   userData: {
     name: string;
     phone: string;
@@ -31,8 +31,6 @@ const initialState: IOrderState = {
   isError: false,
 };
 
-export const USER_ORDERS = `${USER}/orders`;
-
 axios.interceptors.request.use((request) => {
   const auth = storage.getItem<IGetUSer>('userData');
   if (auth?.token && request.headers) {
@@ -47,12 +45,11 @@ axios.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error.response.status == 401) {
+    if (error.response && error.response.status == 401) {
       localStorage.removeItem('userData');
       location.reload();
       return Promise.reject({ message: 'Please login again.' });
     }
-    return Promise.reject(error);
   }
 );
 
@@ -70,10 +67,31 @@ export const sendOrder = createAsyncThunk(
   'orders/sendOrder',
   async (params: { id: string; body: IOrder }) => {
     try {
-      await axios.post<IOrder[]>(`${BASE_URL}users/${params.id}/orders`, params.body);
+      const response = await axios.post<IOrder[]>(
+        `${BASE_URL}users/${params.id}/orders`,
+        params.body
+      );
+      return response.data;
     } catch (err) {
       const error = err as AxiosError;
-      throw new Error(error.message);
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 400) {
+          throw new Error('Bad request. Please provide valid credentials.');
+        } else if (status === 401) {
+          throw new Error('Unauthorized. Please check your email and password.');
+        } else if (status === 403) {
+          throw new Error('Your password is incorrect. Please check your credentials.');
+        } else if (status === 404) {
+          throw new Error('This email does not exist. Please check your credentials.');
+        } else if (status === 500) {
+          throw new Error('Internal server error. Please try again later.');
+        } else {
+          throw new Error('Server error. Please try again later.');
+        }
+      } else {
+        throw new Error('An error occurred. Please try again later.');
+      }
     }
   }
 );

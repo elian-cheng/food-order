@@ -44,7 +44,7 @@ const OrdersPage: React.FC = () => {
 
   return (
     <>
-      {!orders.length ? (
+      {!orders.length && !isLoading ? (
         <Typography component="h2" variant="h4" sx={{ mt: '5rem' }}>
           There are no orders yet. Please place an order in the shopping cart first.
         </Typography>

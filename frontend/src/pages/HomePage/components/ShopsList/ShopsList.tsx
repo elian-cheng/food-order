@@ -1,4 +1,5 @@
-import { Box, List, ListItem, Typography } from '@mui/material';
+import { Alert, Box, List, ListItem, Snackbar, Typography } from '@mui/material';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
 import { setShop } from '../../../../store/redux/catalogSlice';
 
@@ -8,10 +9,15 @@ const ShopsList: React.FC = () => {
   const dispatch = useAppDispatch();
   const { cartItems } = useAppSelector((state) => state.cart);
   const savedShop = useAppSelector((state) => state.catalog.shop);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const closeSnackbarHandler = () => {
+    setSnackbarOpen(false);
+  };
 
   const handleClick = (shop: string) => {
     if (cartItems.length) {
-      alert('Cannot order from multiple shops at once. Delete cart items first.');
+      setSnackbarOpen(true);
     } else {
       dispatch(setShop(shop));
     }
@@ -59,6 +65,18 @@ const ShopsList: React.FC = () => {
           </ListItem>
         ))}
       </List>
+      {snackbarOpen && (
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={4000}
+          onClose={closeSnackbarHandler}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        >
+          <Alert onClose={closeSnackbarHandler} severity="error" sx={{ width: '100%' }}>
+            Cannot order from multiple shops at once. Delete cart items first.
+          </Alert>
+        </Snackbar>
+      )}
     </Box>
   );
 };

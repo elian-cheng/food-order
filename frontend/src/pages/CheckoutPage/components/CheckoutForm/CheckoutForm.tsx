@@ -1,5 +1,5 @@
-import { Box, Button, FormLabel, TextField, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import { Alert, Box, Button, FormLabel, TextField, Typography, Snackbar } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useThemeSwitcher } from '../../../../store/context/themeContext';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -18,20 +18,15 @@ export interface IFormData {
 }
 
 const CheckoutForm: React.FC = () => {
+  const [requestStatus, setRequestStatus] = useState<string>('idle');
   const dispatch = useAppDispatch();
   const { user } = useAuth();
   const { cartItems, totalAmount } = useAppSelector((state) => state.cart);
   const { shop } = useAppSelector((state) => state.catalog);
   const { directions } = useAppSelector((state) => state.map);
-  const { isLoading } = useAppSelector((state) => state.orders);
+  const { isLoading, isError } = useAppSelector((state) => state.orders);
   const navigate = useNavigate();
   const { isDark } = useThemeSwitcher();
-
-  useEffect(() => {
-    if (!directions) return;
-    const valueInp = document.querySelector('#address') as HTMLInputElement;
-    valueInp.value = directions;
-  }, [directions]);
 
   const schema = yup.object().shape({
     name: yup
@@ -51,12 +46,19 @@ const CheckoutForm: React.FC = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<IFormData>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
     shouldUseNativeValidation: false,
   });
+
+  useEffect(() => {
+    if (directions) {
+      setValue('address', directions);
+    }
+  }, [directions, setValue]);
 
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
     const { name, phone, address } = data;
@@ -74,14 +76,51 @@ const CheckoutForm: React.FC = () => {
         totalAmount,
         date: new Date().toString(),
       };
-      dispatch(sendOrder({ id: user!, body: orderData }));
-      dispatch(replaceCart());
-      navigate('/', { replace: true });
-    } catch (err: unknown) {
-      const error = err as Error;
-      alert(error.message);
+
+      dispatch(sendOrder({ id: user!, body: orderData })).then((action) => {
+        if (sendOrder.fulfilled.match(action)) {
+          setRequestStatus('success');
+          setTimeout(() => {
+            dispatch(replaceCart());
+            navigate('/', { replace: true });
+          }, 3000);
+        }
+      });
+    } catch (error: unknown) {
+      setRequestStatus('error');
     }
   };
+
+  let snackbar;
+  if (isError) {
+    snackbar = (
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={isError}
+        autoHideDuration={4000}
+        onClose={() => {
+          setRequestStatus('idle');
+        }}
+      >
+        <Alert severity="error" sx={{ width: '100%' }}>
+          There was an error submitting your order! Try again later.
+        </Alert>
+      </Snackbar>
+    );
+  } else if (requestStatus === 'success') {
+    snackbar = (
+      <Snackbar
+        open={requestStatus === 'success'}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={4000}
+        onClose={() => setRequestStatus('idle')}
+      >
+        <Alert severity="success" sx={{ width: '100%' }}>
+          Your order was successfully submitted! You can check it on the orders page.
+        </Alert>
+      </Snackbar>
+    );
+  }
 
   return (
     <Box
@@ -111,7 +150,6 @@ const CheckoutForm: React.FC = () => {
           required
           fullWidth
           id="name"
-          // label="Name"
           name="name"
           type="name"
           autoComplete="name"
@@ -126,7 +164,6 @@ const CheckoutForm: React.FC = () => {
           required
           fullWidth
           name="phone"
-          // label="Phone"
           type="string"
           id="phone"
           autoComplete="current-phone"
@@ -141,7 +178,6 @@ const CheckoutForm: React.FC = () => {
           required
           fullWidth
           name="address"
-          // label="Address"
           type="text"
           id="address"
           autoComplete="current-address"
@@ -165,6 +201,7 @@ const CheckoutForm: React.FC = () => {
         )}
         {isLoading && <p>Sending request...</p>}
       </form>
+      {snackbar}
     </Box>
   );
 };

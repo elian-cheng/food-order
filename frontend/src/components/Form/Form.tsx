@@ -1,14 +1,18 @@
 import {
+  Alert,
   Avatar,
   Box,
   Button,
-  Checkbox,
-  FormControlLabel,
   Grid,
+  IconButton,
+  InputAdornment,
   Link,
+  Snackbar,
   TextField,
   Typography,
 } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import React, { useState } from 'react';
 import { useAuth } from '../../store/context/authContext';
 import { useThemeSwitcher } from '../../store/context/themeContext';
@@ -18,6 +22,7 @@ import * as yup from 'yup';
 import { LockOutlined } from '@mui/icons-material';
 import COLORS from '../../theme/colors';
 import { getUserId, userLoginAPI, userSignUpAPI } from '../../API/authorization';
+import { AxiosError } from 'axios';
 
 export interface IFormData {
   email: string;
@@ -30,9 +35,19 @@ const Form: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { setUser } = useAuth();
   const { isDark } = useThemeSwitcher();
+  const [errorMsg, setErrorMsg] = useState<string>('');
+  const [requestStatus, setRequestStatus] = useState<string>('idle');
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const showPasswordHandler = () => setShowPassword((show) => !show);
+
+  const passwordMouseDownHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
+    reset();
   };
 
   const schema = yup.object().shape({
@@ -53,7 +68,7 @@ const Form: React.FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
   } = useForm<IFormData>({
     mode: 'onBlur',
@@ -63,7 +78,6 @@ const Form: React.FC = () => {
 
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
     setIsLoading(true);
-
     try {
       if (!isLogin) {
         await userSignUpAPI(data);
@@ -72,15 +86,50 @@ const Form: React.FC = () => {
       localStorage.setItem('userData', JSON.stringify(res));
       setUser(getUserId());
       setIsLoading(false);
-      location.reload();
+      setRequestStatus('success');
+      setErrorMsg('');
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
     } catch (err: unknown) {
-      const error = err as Error;
+      const error = err as AxiosError;
       setIsLoading(false);
-      alert(error.message);
+      setErrorMsg(error.message);
+      setRequestStatus('error');
     }
   };
 
-  const showPassword = watch('showPassword');
+  let snackbar;
+  if (requestStatus === 'error') {
+    snackbar = (
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={Boolean(errorMsg)}
+        autoHideDuration={4000}
+        onClose={() => {
+          setErrorMsg('');
+          setRequestStatus('idle');
+        }}
+      >
+        <Alert severity="error" sx={{ width: '100%' }}>
+          {errorMsg}
+        </Alert>
+      </Snackbar>
+    );
+  } else if (requestStatus === 'success') {
+    snackbar = (
+      <Snackbar
+        open={requestStatus === 'success'}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={4000}
+        onClose={() => setRequestStatus('idle')}
+      >
+        <Alert severity="success" sx={{ width: '100%' }}>
+          You successfully logged in. Enjoy your shopping!
+        </Alert>
+      </Snackbar>
+    );
+  }
 
   return (
     <Box
@@ -127,19 +176,26 @@ const Form: React.FC = () => {
           fullWidth
           name="password"
           label="Password"
-          type={showPassword ? 'text' : 'password'}
           id="password"
+          type={showPassword ? 'text' : 'password'}
           autoComplete="current-password"
           error={!!errors.password}
           helperText={errors?.password?.message}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  edge="end"
+                  onClick={showPasswordHandler}
+                  onMouseDown={passwordMouseDownHandler}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+          sx={{ mb: '2rem' }}
         />
-
-        <FormControlLabel
-          control={<Checkbox {...register('showPassword')} color="secondary" />}
-          label="Show password"
-          sx={{ my: '1rem' }}
-        />
-
         {!isLoading && (
           <Button
             type="submit"
@@ -165,6 +221,7 @@ const Form: React.FC = () => {
           </Grid>
         </Grid>
       </form>
+      {snackbar}
     </Box>
   );
 };

@@ -1,8 +1,7 @@
 import { BASE_URL } from './URL';
-import { IGetUSer, USER } from './authorization';
+import { IGetUSer } from './authorization';
 import axios from 'axios';
 import storage from '../utils/storage';
-// import { IProduct } from './products';
 import { ICartItem } from '../store/redux/cartSlice';
 
 export interface IUserOrder {
@@ -17,8 +16,6 @@ export interface IUserOrder {
   totalAmount: number;
   date: string;
 }
-
-export const USER_ORDERS = `${USER}/orders`;
 
 axios.interceptors.request.use((request) => {
   const auth = storage.getItem<IGetUSer>('userData');

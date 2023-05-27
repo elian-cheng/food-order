@@ -91,7 +91,7 @@ const CartSummary = (props: ISummaryCart) => {
     return (
       <Box>
         <Box sx={{ textDecoration: 'line-through' }}>
-          Total {ProductDetailsLabels.Currency}: {props.totalAmount}
+          Total {ProductDetailsLabels.Currency}: {props.totalAmount.toFixed(2)}
         </Box>
         <Box>
           Total {ProductDetailsLabels.Currency}:{' '}

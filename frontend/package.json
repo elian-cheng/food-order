@@ -9,7 +9,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss}\"",
     "lint": "eslint --fix \"src/**/*.{ts,tsx,js,jsx}\"",
     "pre-commit": "lint-staged",
-    "prepare": "husky install",
+    "prepare": "cd .. && husky install frontend/.husky",
     "preview": "vite preview"
   },
   "dependencies": {
