@@ -37,7 +37,12 @@ const HomePage: FC = () => {
           display: 'flex',
           alignItems: 'flex-start',
           justifyContent: 'center',
+          rowGap: '1rem',
           my: '2rem',
+          flexWrap: {
+            xs: 'wrap',
+            sm: 'nowrap',
+          },
         }}
       >
         <ShopsList />

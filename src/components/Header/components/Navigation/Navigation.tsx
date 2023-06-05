@@ -31,7 +31,7 @@ const Navigation: React.FC<INavigation> = ({ handleModal }) => {
       >
         <MenuItem>
           <NavLink to="/">
-            <Typography sx={{ verticalAlign: 'middle' }} component={'span'}>
+            <Typography sx={{ verticalAlign: 'middle', fontWeight: '500' }} component={'span'}>
               Home
             </Typography>
           </NavLink>
@@ -40,30 +40,34 @@ const Navigation: React.FC<INavigation> = ({ handleModal }) => {
           <>
             <MenuItem>
               <NavLink to="/orders">
-                <Typography sx={{ verticalAlign: 'middle' }} component={'span'}>
+                <Typography sx={{ verticalAlign: 'middle', fontWeight: '500' }} component={'span'}>
                   Orders
                 </Typography>
               </NavLink>
             </MenuItem>
-            <MenuItem>
-              <Button onClick={logoutHandler} endIcon={<Icons.Logout />}>
-                Logout
-              </Button>
-            </MenuItem>
+            <Button
+              onClick={logoutHandler}
+              endIcon={<Icons.Logout />}
+              sx={{ textTransform: 'capitalize', fontSize: '1rem', px: '.7rem' }}
+            >
+              Logout
+            </Button>
             <MenuItem>
               <NavLink to="/cart">
-                <Badge badgeContent={totalQuantity}>
+                <Badge badgeContent={totalQuantity} color="primary">
                   <Icons.ShoppingCart sx={{ verticalAlign: 'middle', mr: '.5rem' }} />
                 </Badge>
               </NavLink>
             </MenuItem>
           </>
         ) : (
-          <MenuItem>
-            <Button onClick={handleModal} endIcon={<Icons.Login />}>
-              Login
-            </Button>
-          </MenuItem>
+          <Button
+            onClick={handleModal}
+            endIcon={<Icons.Login />}
+            sx={{ textTransform: 'capitalize', fontSize: '1rem', px: '.7rem', mr: '1rem' }}
+          >
+            Login
+          </Button>
         )}
       </List>
     </nav>

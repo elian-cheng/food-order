@@ -44,10 +44,10 @@ const CartProduct = (props: ICartItem) => {
         mb={2}
         sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
       >
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} sm={4} md={3}>
           <Image src={`${props.image}`} alt={`${props.title}`} />
         </Grid>
-        <Grid item xs={12} md={6} sx={{ textAlign: 'center', justifyItems: 'center' }}>
+        <Grid item xs={12} sm={8} md={6} sx={{ textAlign: 'center', justifyItems: 'center' }}>
           <Typography variant="h6" component="h2" mb={1}>
             {props.title}
           </Typography>

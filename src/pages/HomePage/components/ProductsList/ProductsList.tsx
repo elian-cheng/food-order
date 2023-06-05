@@ -8,7 +8,7 @@ export interface IProductsList {
 
 const ProductsList: React.FC<IProductsList> = ({ products }) => {
   return (
-    <Grid container spacing={{ xs: 2 }}>
+    <Grid container spacing={{ xs: 2 }} sx={{ justifyContent: 'center' }}>
       {products.map((product) => (
         <ProductCard product={product} key={product.id} />
       ))}

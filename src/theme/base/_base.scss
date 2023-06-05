@@ -20,10 +20,7 @@ body {
 }
 
 body {
-  // color: $colorFont;
-  // background: $colorBg;
   font-family: 'Noto Sans JP', sans-serif;
-  // font-weight: $fontRegular;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -38,7 +35,7 @@ body {
   }
   &::-webkit-scrollbar-track {
     border-radius: 10px;
-    background: $colorYellow;
+    background: #66fcf1;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
@@ -168,8 +165,4 @@ body.lock {
   font-size: 3rem;
   font-weight: bold;
   color: white;
-}
-
-.activeShop {
-  border: 3px solid cyan;
 }

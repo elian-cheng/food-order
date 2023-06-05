@@ -24,14 +24,24 @@ const ShopsList: React.FC = () => {
   };
 
   return (
-    <Box sx={{ width: 280 }}>
+    <Box sx={{ mr: '1rem' }}>
       <List
         sx={{
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: {
+            xs: 'row',
+            sm: 'column',
+          },
           alignItems: 'center',
-          gridGap: '2rem',
-          justifyContent: 'flex-start',
+          gridGap: {
+            xs: '0.5rem',
+            sm: '2rem',
+          },
+          flexWrap: 'wrap',
+          justifyContent: {
+            xs: 'center',
+            sm: 'flex-start',
+          },
         }}
       >
         {SHOPSLIST.map((shop, index) => (
@@ -41,9 +51,15 @@ const ShopsList: React.FC = () => {
               color: 'white',
               border: '1px solid transparent',
               backgroundColor: savedShop === shop ? '#39527c' : 'grey',
-              padding: 5,
-              width: 200,
-              height: 80,
+              padding: 3,
+              width: {
+                xs: 120,
+                sm: 200,
+              },
+              height: {
+                xs: 20,
+                sm: 80,
+              },
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

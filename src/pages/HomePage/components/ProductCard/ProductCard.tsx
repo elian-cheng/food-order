@@ -41,7 +41,7 @@ const ProductCard: React.FC<IProductProps> = ({ product }) => {
 
   return (
     <>
-      <Grid item key={product.id} xs={12} md={6} lg={4}>
+      <Grid item key={product.id} xs={7} md={5} lg={3} sx={{ minWidth: '295px' }}>
         <Paper
           elevation={5}
           sx={{
@@ -54,18 +54,17 @@ const ProductCard: React.FC<IProductProps> = ({ product }) => {
           }}
         >
           <Box
-            m={2}
+            m={1}
             borderRadius={1}
             sx={{
-              height: 150,
+              height: 180,
               backgroundImage: 'url(' + product.image + ')',
               backgroundPosition: 'center center',
               backgroundRepeat: 'no-repeat',
-              backgroundSize: 'contain',
-              boxShadow: 3,
+              backgroundSize: 'cover',
             }}
           />
-          <Container
+          <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -88,7 +87,7 @@ const ProductCard: React.FC<IProductProps> = ({ product }) => {
             >
               Add to cart
             </Button>
-          </Container>
+          </Box>
         </Paper>
       </Grid>
       {snackbarOpen && (

@@ -16,7 +16,7 @@ const CartPage = () => {
         <Paper
           elevation={5}
           sx={{
-            mb: 2,
+            my: 3,
             p: 2,
             overflow: 'hidden',
             height: '100%',

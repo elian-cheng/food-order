@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../../store/context/authContext';
 import { useThemeSwitcher } from '../../store/context/themeContext';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -21,8 +21,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { LockOutlined } from '@mui/icons-material';
 import COLORS from '../../theme/colors';
-import { getUserId, userLoginAPI, userSignUpAPI } from '../../API/authorization';
+import {
+  checkUserAuthorization,
+  getUserId,
+  userLoginAPI,
+  userSignUpAPI,
+} from '../../API/authorization';
 import { AxiosError } from 'axios';
+import storage from '../../utils/storage';
 
 export interface IFormData {
   email: string;
@@ -75,6 +81,20 @@ const Form: React.FC = () => {
     resolver: yupResolver(schema),
     shouldUseNativeValidation: false,
   });
+
+  const updateUser = useCallback(() => {
+    checkUserAuthorization().then((checkedUser) => {
+      const userData = storage.getItem('userData') || null;
+      if (JSON.stringify(userData) !== JSON.stringify(checkedUser)) {
+        storage.setItem('userData', checkedUser);
+        setUser(getUserId());
+      }
+    });
+  }, [setUser]);
+
+  useEffect(() => {
+    updateUser();
+  }, [updateUser]);
 
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
     setIsLoading(true);

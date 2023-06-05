@@ -82,7 +82,7 @@ const CheckoutForm: React.FC = () => {
           setRequestStatus('success');
           setTimeout(() => {
             dispatch(replaceCart());
-            navigate('/', { replace: true });
+            navigate('/orders', { replace: true });
           }, 3000);
         }
       });
@@ -116,7 +116,7 @@ const CheckoutForm: React.FC = () => {
         onClose={() => setRequestStatus('idle')}
       >
         <Alert severity="success" sx={{ width: '100%' }}>
-          Your order was successfully submitted! You can check it on the orders page.
+          Your order was successfully submitted!
         </Alert>
       </Snackbar>
     );
